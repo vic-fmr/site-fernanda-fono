@@ -1,117 +1,154 @@
+'use client';
+
+import { useState } from 'react';
 import { siteConfig } from '@/data/site-config';
 import { ServiceIcon } from '@/components/ServiceIcon';
-import { Check, HelpCircle, ArrowRight, MessageCircle } from 'lucide-react';
+import { Reveal } from '@/components/Reveal';
+import { Check, HelpCircle, ArrowRight, MessageCircle, ChevronDown } from 'lucide-react';
 
 export function Services() {
+  const [openServiceId, setOpenServiceId] = useState<string | null>(null);
+
   const getServiceWhatsAppUrl = (serviceTitle: string) => {
     const msg = `Olá, Dra. Fernanda! Gostaria de entender mais sobre o atendimento de: ${serviceTitle}.`;
     return `https://wa.me/${siteConfig.contact.whatsappNumber}?text=${encodeURIComponent(msg)}`;
   };
 
-  return (
-    <section id="especialidades" className="py-20 md:py-28 bg-[#fbfbf9]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-teal-800 bg-teal-100/70 px-3.5 py-1.5 rounded-full border border-teal-200/80">
-            {siteConfig.servicesSection.tag}
-          </span>
-          <h2 className="mt-4 text-3xl sm:text-4xl font-extrabold text-stone-900 tracking-tight">
-            {siteConfig.servicesSection.title}
-          </h2>
-          <p className="mt-4 text-lg text-stone-600 leading-relaxed font-normal">
-            {siteConfig.servicesSection.subtitle}
-          </p>
+  const renderServiceCard = (service: (typeof siteConfig.servicesSection.items)[number]) => (
+    <article
+      key={service.id}
+      className="flex self-start flex-col justify-between border-t border-[#d7d3c9] py-7 sm:py-8"
+    >
+      <div>
+        <div className="mb-5 flex items-start justify-between gap-4">
+          <div className="flex h-11 w-11 items-center justify-center border border-[#315b55] text-[#315b55]">
+            <ServiceIcon name={service.iconName} className="h-5 w-5" />
+          </div>
+          {service.badge && (
+            <span className="text-xs font-semibold uppercase tracking-[0.12em] text-[#b96745]">
+              {service.badge}
+            </span>
+          )}
         </div>
 
-        {/* Services Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
-          {siteConfig.servicesSection.items.map((service) => (
-            <article
-              key={service.id}
-              className="bg-white rounded-3xl p-7 sm:p-9 shadow-sm hover:shadow-xl border border-stone-200/90 transition-all duration-300 flex flex-col justify-between"
-            >
-              <div>
-                {/* Header of Service Card */}
-                <div className="flex items-start justify-between gap-4 mb-5">
-                  <div className="w-14 h-14 rounded-2xl bg-teal-50 border border-teal-200/80 flex items-center justify-center text-teal-800 shadow-sm">
-                    <ServiceIcon name={service.iconName} className="w-7 h-7" />
-                  </div>
-                  {service.badge && (
-                    <span className="text-xs font-bold px-3 py-1 rounded-full bg-teal-100/80 text-teal-900">
-                      {service.badge}
-                    </span>
-                  )}
-                </div>
+        <h3 className="mb-3 text-2xl text-[#25322f]">
+          {service.title}
+        </h3>
 
-                <h3 className="text-2xl font-bold text-stone-900 tracking-tight mb-3">
-                  {service.title}
-                </h3>
+        <p className="mb-6 text-sm leading-7 text-[#52605b] sm:text-base">
+          {service.shortDescription}
+        </p>
 
-                <p className="text-stone-600 text-sm sm:text-base leading-relaxed mb-6">
-                  {service.fullDescription}
-                </p>
+        <div className="border-t border-[#e2ded5] pt-4">
+          <button
+            type="button"
+            onClick={() => setOpenServiceId(openServiceId === service.id ? null : service.id)}
+            className="group flex min-h-11 w-full cursor-pointer items-center justify-between gap-4 text-left text-sm font-semibold text-[#315b55] transition-colors hover:text-[#b96745]"
+            aria-expanded={openServiceId === service.id}
+            aria-controls={`service-details-${service.id}`}
+          >
+            <span className="transition-transform duration-200 group-hover:translate-x-0.5">{openServiceId === service.id ? 'Ocultar detalhes' : 'Entender este atendimento'}</span>
+            <ChevronDown className={`h-5 w-5 shrink-0 transition-[color,transform] duration-300 group-hover:text-[#b96745] group-hover:translate-y-0.5 ${openServiceId === service.id ? 'rotate-180' : ''}`} />
+          </button>
 
-                {/* Indicated For */}
-                <div className="pt-5 border-t border-stone-100">
-                  <h4 className="text-xs font-bold uppercase tracking-wider text-stone-800 mb-3 flex items-center gap-1.5">
-                    <HelpCircle className="w-4 h-4 text-teal-700" />
-                    <span>Indicado para quem apresenta:</span>
+          <div
+            id={`service-details-${service.id}`}
+            className={`service-details-grid ${openServiceId === service.id ? 'is-open' : ''}`}
+            aria-hidden={openServiceId !== service.id}
+          >
+            <div className={`service-details-content ${openServiceId === service.id ? 'border-t border-[#e2ded5] pt-5' : ''}`}>
+              <p className="text-sm leading-7 text-[#52605b]">{service.fullDescription}</p>
+
+              <div className="mt-6 grid gap-6 border-t border-[#e2ded5] pt-5 sm:grid-cols-2">
+                <div>
+                  <h4 className="mb-3 flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.12em] text-[#52605b]">
+                    <HelpCircle className="h-4 w-4 text-[#b96745]" />
+                    <span>Quando procurar</span>
                   </h4>
-                  <ul className="space-y-2 text-xs sm:text-sm text-stone-600">
-                    {service.indicatedFor.map((item, idx) => (
-                      <li key={idx} className="flex items-start gap-2.5">
-                        <span className="text-teal-700 font-bold leading-tight mt-0.5">•</span>
+                  <ul className="space-y-2 text-xs leading-5 text-[#52605b] sm:text-sm">
+                    {service.indicatedFor.map((item) => (
+                      <li key={item} className="flex items-start gap-2.5">
+                        <span className="mt-0.5 font-bold leading-tight text-[#b96745]">•</span>
                         <span>{item}</span>
                       </li>
                     ))}
                   </ul>
                 </div>
 
-                {/* Benefits */}
-                <div className="mt-6 pt-5 border-t border-stone-100">
-                  <h4 className="text-xs font-bold uppercase tracking-wider text-stone-800 mb-3 flex items-center gap-1.5">
-                    <Check className="w-4 h-4 text-teal-700" />
-                    <span>Objetivos e benefícios esperados:</span>
+                <div>
+                  <h4 className="mb-3 flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.12em] text-[#52605b]">
+                    <Check className="h-4 w-4 text-[#315b55]" />
+                    <span>O que buscamos</span>
                   </h4>
-                  <div className="flex flex-wrap gap-2">
-                    {service.benefits.map((benefit, idx) => (
-                      <span
-                        key={idx}
-                        className="inline-block text-xs bg-stone-50 text-stone-700 px-3 py-1 rounded-lg border border-stone-200 font-medium"
-                      >
-                        {benefit}
-                      </span>
+                  <ul className="space-y-2 text-xs leading-5 text-[#52605b] sm:text-sm">
+                    {service.benefits.map((benefit) => (
+                      <li key={benefit} className="flex items-start gap-2.5">
+                        <span className="mt-0.5 font-bold leading-tight text-[#315b55]">•</span>
+                        <span>{benefit}</span>
+                      </li>
                     ))}
-                  </div>
+                  </ul>
                 </div>
               </div>
-
-              {/* Service Card Action */}
-              <div className="mt-8 pt-6 border-t border-stone-100">
-                <a
-                  href={getServiceWhatsAppUrl(service.title)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl text-sm font-bold text-teal-900 bg-teal-50 hover:bg-teal-100/90 border border-teal-200/80 active:scale-[0.98] transition-all"
-                >
-                  <MessageCircle className="w-4 h-4 text-teal-700" />
-                  <span>Dúvidas sobre este tratamento? Fale com a Dra. Fernanda</span>
-                  <ArrowRight className="w-4 h-4 text-teal-700" />
-                </a>
-              </div>
-            </article>
-          ))}
+            </div>
+          </div>
         </div>
+      </div>
+
+      <div className="mt-8 border-t border-[#e2ded5] pt-6">
+        <a
+          href={getServiceWhatsAppUrl(service.title)}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group inline-flex cursor-pointer items-center gap-2 text-sm font-semibold text-[#315b55] transition-colors hover:text-[#b96745]"
+        >
+          <span className="inline-flex items-center gap-2 transition-transform duration-300 group-hover:translate-x-1">
+            <MessageCircle className="h-4 w-4 text-[#b96745] transition-transform duration-200 group-hover:scale-110" />
+            <span>Dúvidas sobre este tratamento? Fale com a Dra. Fernanda</span>
+            <ArrowRight className="h-4 w-4 text-[#b96745] transition-transform duration-200 group-hover:translate-x-1" />
+          </span>
+        </a>
+      </div>
+    </article>
+  );
+
+  return (
+    <section id="especialidades" className="bg-[#f7f5f0] py-20 md:py-28">
+      <div className="mx-auto max-w-7xl px-5 sm:px-8">
+
+        {/* Section Header */}
+        <Reveal className="mb-14 max-w-2xl">
+          <span className="text-xs font-semibold uppercase tracking-[0.2em] text-[#b96745]">
+            {siteConfig.servicesSection.tag}
+          </span>
+          <h2 className="mt-5 text-4xl leading-tight text-[#25322f] sm:text-5xl">
+            {siteConfig.servicesSection.title}
+          </h2>
+          <p className="mt-5 text-lg leading-8 text-[#52605b]">
+            {siteConfig.servicesSection.subtitle}
+          </p>
+        </Reveal>
+
+        {/* Services Grid */}
+        <Reveal className="motion-stagger md:hidden">
+          {siteConfig.servicesSection.items.map(renderServiceCard)}
+        </Reveal>
+        <Reveal className="hidden items-start gap-x-12 md:grid md:grid-cols-2">
+          <div className="motion-stagger">
+            {siteConfig.servicesSection.items.filter((_, index) => index % 2 === 0).map(renderServiceCard)}
+          </div>
+          <div className="motion-stagger">
+            {siteConfig.servicesSection.items.filter((_, index) => index % 2 === 1).map(renderServiceCard)}
+          </div>
+        </Reveal>
 
         {/* Reassurance Consultation Banner */}
-        <div className="mt-16 p-8 sm:p-10 rounded-3xl bg-teal-950 text-white flex flex-col md:flex-row items-center justify-between gap-8 shadow-xl">
-          <div className="space-y-2 text-center md:text-left">
-            <h3 className="text-xl sm:text-2xl font-bold tracking-tight">
+        <Reveal className="mt-16 flex flex-col items-start justify-between gap-7 border-y border-[#315b55] py-8 md:flex-row md:items-center" delay={150}>
+          <div className="space-y-2">
+            <h3 className="text-2xl text-[#25322f]">
               Não tem certeza de qual área é indicada para o seu caso?
             </h3>
-            <p className="text-sm sm:text-base text-teal-100/80 max-w-2xl font-normal">
+            <p className="max-w-2xl text-sm leading-6 text-[#52605b] sm:text-base">
               Cada histórico de saúde é singular. Podemos realizar uma breve conversa inicial para compreender o quadro clínico e indicar o plano mais seguro.
             </p>
           </div>
@@ -119,12 +156,14 @@ export function Services() {
             href={`https://wa.me/${siteConfig.contact.whatsappNumber}?text=${encodeURIComponent('Olá, Dra. Fernanda! Gostaria de uma orientação sobre qual é o atendimento adequado para o meu caso.')}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex-shrink-0 px-7 py-4 rounded-xl font-bold text-teal-950 bg-emerald-300 hover:bg-emerald-200 shadow-md active:scale-[0.98] transition-all text-sm flex items-center gap-2"
+            className="group flex shrink-0 cursor-pointer items-center gap-2 bg-[#315b55] px-5 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-[#24443f]"
           >
-            <MessageCircle className="w-4 h-4" />
-            <span>Fazer Triagem no WhatsApp</span>
+            <span className="inline-flex items-center gap-2 transition-transform duration-300 group-hover:-translate-y-0.5">
+              <MessageCircle className="h-4 w-4 text-[#e9b08f]" />
+              <span>Fazer Triagem no WhatsApp</span>
+            </span>
           </a>
-        </div>
+        </Reveal>
 
       </div>
     </section>

@@ -1,67 +1,55 @@
 import { siteConfig } from '@/data/site-config';
-import { ArrowRight, MessageCircle, CheckCircle2, ShieldCheck, HeartHandshake } from 'lucide-react';
+import { ArrowRight, MessageCircle, CheckCircle2, ShieldCheck } from 'lucide-react';
+import { Reveal } from '@/components/Reveal';
 
 export function Hero() {
   const whatsappUrl = `https://wa.me/${siteConfig.contact.whatsappNumber}?text=${encodeURIComponent(siteConfig.contact.whatsappDefaultMessage)}`;
 
   return (
-    <section
-      id="inicio"
-      className="relative pt-12 pb-20 md:pt-20 md:pb-28 bg-[#fbfbf9] overflow-hidden border-b border-stone-200/60"
-    >
-      {/* Subtle architectural background texture */}
-      <div className="absolute inset-0 bg-[radial-gradient(#134e48_0.75px,transparent_0.75px)] [background-size:24px_24px] opacity-[0.035] pointer-events-none" />
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 items-center">
-          
-          {/* Main Content Column */}
-          <div className="lg:col-span-7 space-y-7">
-            
-            {/* Clinical Positioning Badge */}
-            <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-teal-50/90 border border-teal-200/80 text-teal-900 text-xs sm:text-sm font-semibold tracking-wide">
-              <span className="w-2 h-2 rounded-full bg-teal-700 animate-subtle-beacon"></span>
+    <section id="inicio" className="border-b border-[#d7d3c9] bg-[#f7f5f0] lg:min-h-[calc(100svh-77px)] lg:flex lg:items-center">
+      <div className="mx-auto w-full max-w-7xl px-5 py-12 sm:px-8 md:py-16 lg:py-8">
+        <div className="grid items-center gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:gap-12">
+          <Reveal className="max-w-3xl">
+            <p className="mb-7 flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.2em] text-[#b96745]">
+              <span className="h-px w-10 bg-[#b96745]" />
               {siteConfig.positioning.badge}
-            </div>
-
-            {/* Headline */}
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-stone-900 tracking-tight leading-[1.12]">
+            </p>
+            <h1 className="max-w-3xl text-5xl leading-[1.04] text-[#25322f] sm:text-6xl lg:text-[4.75rem] xl:text-[5.25rem]">
               {siteConfig.positioning.heroHeadline}{' '}
-              <span className="text-teal-800 underline decoration-teal-300 decoration-wavy decoration-2 underline-offset-8">
+              <span className="text-[#315b55]">
                 {siteConfig.positioning.heroHighlightWord}
               </span>
             </h1>
-
-            {/* Subheadline */}
-            <p className="text-lg sm:text-xl text-stone-600 leading-relaxed max-w-2xl font-normal">
+            <p className="mt-8 max-w-2xl text-lg leading-8 text-[#52605b] sm:text-xl">
               {siteConfig.positioning.heroSubheadline}
             </p>
-
-            {/* Tactile Action Buttons */}
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-2">
+            <div className="mt-9 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center">
               <a
                 href={whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-xl text-base font-bold text-white bg-teal-800 hover:bg-teal-900 shadow-md hover:shadow-lg active:scale-[0.98] transition-all"
+                className="hero-cta-primary group relative inline-flex items-center justify-center overflow-hidden bg-[#315b55] px-6 py-3.5 text-base font-semibold text-white shadow-none transition-shadow duration-300 hover:shadow-[0_10px_24px_rgba(37,50,47,0.16)]"
               >
-                <MessageCircle className="w-5 h-5 text-emerald-300" />
-                <span>{siteConfig.positioning.primaryCtaText}</span>
+                <span className="inline-flex items-center gap-2.5 transition-transform duration-300 ease-out group-hover:-translate-y-1 group-hover:scale-[1.02] group-active:translate-y-0 group-active:scale-[0.98]">
+                  <MessageCircle className="h-5 w-5 text-[#e9b08f] transition-transform duration-200 group-hover:scale-110" />
+                  <span>{siteConfig.positioning.primaryCtaText}</span>
+                </span>
               </a>
 
               <a
                 href="#especialidades"
-                className="inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl text-base font-semibold text-stone-700 bg-white hover:bg-stone-50 border border-stone-300 hover:border-stone-400 shadow-sm active:scale-[0.98] transition-all"
+                className="hero-cta-secondary group relative inline-flex items-center justify-center overflow-hidden border-b border-[#315b55] px-2 py-3.5 text-base font-semibold text-[#315b55] transition-[border-color,color] duration-300 hover:border-[#b96745] hover:text-[#b96745]"
               >
-                <span>{siteConfig.positioning.secondaryCtaText}</span>
-                <ArrowRight className="w-4 h-4 text-stone-500" />
+                <span className="inline-flex items-center gap-2 transition-transform duration-300 ease-out group-hover:translate-x-1 group-active:translate-x-0">
+                  <span>{siteConfig.positioning.secondaryCtaText}</span>
+                  <ArrowRight className="h-4 w-4 text-stone-500 transition-transform duration-200 group-hover:translate-x-1 group-hover:text-[#b96745]" />
+                </span>
               </a>
             </div>
 
-            {/* Trust commitments list */}
-            <div className="pt-4 grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm text-stone-600">
+            <div className="mt-8 grid max-w-2xl grid-cols-1 gap-2.5 border-t border-[#d7d3c9] pt-4 text-sm text-[#52605b] sm:grid-cols-2">
               <div className="flex items-center gap-2.5">
-                <CheckCircle2 className="w-4 h-4 text-teal-700 flex-shrink-0" />
+                <CheckCircle2 className="h-4 w-4 flex-shrink-0 text-[#b96745]" />
                 <span>Prática clínica baseada em evidências</span>
               </div>
               <div className="flex items-center gap-2.5">
@@ -78,83 +66,50 @@ export function Hero() {
               </div>
             </div>
 
-          </div>
+          </Reveal>
 
-          {/* Clinical Authority Card */}
-          <div className="lg:col-span-5">
-            <div className="relative mx-auto max-w-md lg:max-w-none">
-              
-              {/* Elevated Medical Profile Card */}
-              <div className="bg-white rounded-3xl p-7 sm:p-8 shadow-xl border border-stone-200/90 relative">
-                
-                {/* Professional Identification */}
-                <div className="flex items-center gap-4 pb-6 border-b border-stone-100">
-                  <div className="w-16 h-16 rounded-2xl bg-teal-900 text-white flex items-center justify-center text-xl font-bold tracking-tight shadow-md">
-                    FM
-                  </div>
-                  <div>
-                    <h2 className="text-xl font-bold text-stone-900 tracking-tight">
-                      {siteConfig.professional.treatmentTitle}
-                    </h2>
-                    <p className="text-xs font-bold text-teal-800 tracking-wide mt-0.5">
-                      {siteConfig.professional.crfa}
-                    </p>
-                    <p className="text-xs text-stone-500 mt-0.5">
-                      {siteConfig.professional.role}
-                    </p>
-                  </div>
-                </div>
-
-                {/* Patient-Centered Statement */}
-                <div className="py-5">
-                  <blockquote className="text-sm text-stone-700 leading-relaxed italic bg-stone-50 p-4 rounded-2xl border-l-4 border-teal-700">
-                    &ldquo;{siteConfig.professional.shortBio}&rdquo;
-                  </blockquote>
-                </div>
-
-                {/* Verified Credentials */}
-                <div className="space-y-3 pt-1">
-                  {siteConfig.professional.credentials.map((cred) => (
-                    <div
-                      key={cred.label}
-                      className="flex justify-between items-center text-xs sm:text-sm py-1.5 border-b border-stone-100 last:border-none"
-                    >
-                      <span className="text-stone-500 font-medium">{cred.label}</span>
-                      <span className="font-semibold text-stone-900">{cred.value}</span>
-                    </div>
-                  ))}
-                </div>
-
-                {/* Footer validation badge */}
-                <div className="mt-6 pt-4 border-t border-stone-100 flex items-center justify-between text-xs text-stone-600">
-                  <div className="flex items-center gap-1.5 text-teal-800 font-semibold">
-                    <ShieldCheck className="w-4 h-4 text-teal-700" />
-                    <span>Inscrita no Conselho Regional</span>
-                  </div>
-                  <div className="flex items-center gap-1 text-stone-500">
-                    <HeartHandshake className="w-4 h-4 text-teal-600" />
-                    <span>Cuidado Humanizado</span>
-                  </div>
-                </div>
-
+          <Reveal delay={150}>
+            <aside className="border-t-4 border-[#315b55] bg-[#e8e4da] p-6 sm:p-8">
+            <div className="flex items-start justify-between gap-5 border-b border-[#cfc9bd] pb-5">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#b96745]">Perfil clínico</p>
+                <h2 className="mt-3 text-3xl text-[#25322f]">{siteConfig.professional.treatmentTitle}</h2>
+                <p className="mt-2 text-sm leading-6 text-[#52605b]">{siteConfig.professional.role}</p>
+              </div>
+              <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-[#315b55] text-lg font-semibold text-[#315b55]">
+                FM
               </div>
             </div>
-          </div>
-
+            <blockquote className="border-b border-[#cfc9bd] py-5 text-base leading-7 text-[#33423d]">
+              &ldquo;{siteConfig.professional.shortBio}&rdquo;
+            </blockquote>
+            <div className="space-y-3 pt-5">
+              {siteConfig.professional.credentials.slice(0, 3).map((cred) => (
+                <div key={cred.label} className="flex items-baseline justify-between gap-4 text-sm">
+                  <span className="text-[#6e766f]">{cred.label}</span>
+                  <span className="text-right font-semibold text-[#25322f]">{cred.value}</span>
+                </div>
+              ))}
+            </div>
+            <div className="mt-6 flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.12em] text-[#315b55]">
+              <ShieldCheck className="h-4 w-4" />
+              {siteConfig.professional.crfa}
+            </div>
+            </aside>
+          </Reveal>
         </div>
 
-        {/* Quantitative Credibility Metrics */}
-        <div className="mt-16 pt-10 border-t border-stone-200 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+        <Reveal className="mt-8 grid grid-cols-2 border-y border-[#d7d3c9] md:grid-cols-4" delay={200}>
           {siteConfig.positioning.stats.map((stat) => (
             <div
               key={stat.label}
-              className="p-5 rounded-2xl bg-white border border-stone-200/80 shadow-sm"
+              className="group border-r border-[#d7d3c9] px-4 py-4 transition-colors hover:bg-[#efebe3] last:border-r-0 sm:px-6"
             >
-              <p className="text-2xl sm:text-3xl font-extrabold text-teal-900">{stat.value}</p>
-              <p className="text-xs sm:text-sm font-medium text-stone-600 mt-1">{stat.label}</p>
+              <p className="text-3xl text-[#315b55] transition-transform duration-200 group-hover:translate-x-0.5 sm:text-4xl">{stat.value}</p>
+              <p className="mt-2 text-xs leading-5 text-[#6e766f] sm:text-sm">{stat.label}</p>
             </div>
           ))}
-        </div>
+        </Reveal>
 
       </div>
     </section>

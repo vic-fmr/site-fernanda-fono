@@ -4,8 +4,6 @@ import { Modalities } from '@/components/Modalities';
 import { Services } from '@/components/Services';
 import { Methodology } from '@/components/Methodology';
 import { About } from '@/components/About';
-import { Testimonials } from '@/components/Testimonials';
-import { Faq } from '@/components/Faq';
 import { Contact } from '@/components/Contact';
 import { Footer } from '@/components/Footer';
 import { FloatingWhatsApp } from '@/components/FloatingWhatsApp';
@@ -20,8 +18,6 @@ export default function HomePage() {
         <Services />
         <Methodology />
         <About />
-        <Testimonials />
-        <Faq />
         <Contact />
       </main>
       <Footer />

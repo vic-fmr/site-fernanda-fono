@@ -1,72 +1,43 @@
 import { siteConfig } from '@/data/site-config';
-import { Building2, Home, Video } from 'lucide-react';
+import { Building2, Home, Video, ArrowUpRight } from 'lucide-react';
+import { Reveal } from '@/components/Reveal';
+
+const icons = [Building2, Home, Video];
 
 export function Modalities() {
-  const getIcon = (index: number) => {
-    switch (index) {
-      case 0:
-        return <Building2 className="w-6 h-6 text-teal-800" />;
-      case 1:
-        return <Home className="w-6 h-6 text-teal-800" />;
-      case 2:
-        return <Video className="w-6 h-6 text-teal-800" />;
-      default:
-        return <Building2 className="w-6 h-6 text-teal-800" />;
-    }
-  };
-
   return (
-    <section className="py-20 bg-white border-b border-stone-200">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* Section Title */}
-        <div className="text-center max-w-3xl mx-auto mb-14">
-          <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-teal-800 bg-teal-50 px-3.5 py-1.5 rounded-full border border-teal-200/80">
-            Formatos de Atendimento
-          </span>
-          <h2 className="mt-3 text-2xl sm:text-3xl font-bold text-stone-900 tracking-tight">
-            {siteConfig.positioning.modalitiesTitle}
-          </h2>
-          <p className="mt-3 text-base text-stone-600 leading-relaxed">
-            {siteConfig.positioning.modalitiesSubtitle}
-          </p>
-        </div>
-
-        {/* Modality Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {siteConfig.positioning.modalities.map((item, index) => (
-            <div
-              key={item.title}
-              className="relative p-7 sm:p-8 rounded-3xl bg-[#fbfbf9] border border-stone-200 hover:border-teal-400 hover:shadow-md transition-all group flex flex-col justify-between"
-            >
-              <div>
-                <div className="flex items-center justify-between mb-5">
-                  <div className="w-12 h-12 rounded-2xl bg-white border border-stone-200 shadow-sm flex items-center justify-center group-hover:bg-teal-800 group-hover:border-teal-800 transition-colors">
-                    <span className="group-hover:text-white transition-colors">
-                      {getIcon(index)}
-                    </span>
+    <section className="border-b border-[#d7d3c9] bg-[#e8e4da] py-20 md:py-28">
+      <div className="mx-auto max-w-7xl px-5 sm:px-8">
+        <div className="grid gap-10 lg:grid-cols-[0.7fr_1.3fr] lg:gap-20">
+          <Reveal>
+            <p className="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.2em] text-[#b96745]">
+              <span className="h-px w-8 bg-[#b96745]" />
+              Formatos de atendimento
+            </p>
+            <h2 className="mt-5 max-w-sm text-4xl leading-tight text-[#25322f]">
+              {siteConfig.positioning.modalitiesTitle}
+            </h2>
+            <p className="mt-5 max-w-sm text-base leading-7 text-[#52605b]">
+              {siteConfig.positioning.modalitiesSubtitle}
+            </p>
+          </Reveal>
+          <Reveal className="divide-y divide-[#cfc9bd] border-y border-[#cfc9bd]" delay={150}>
+            {siteConfig.positioning.modalities.map((item, index) => {
+              const Icon = icons[index];
+              return (
+                <article key={item.title} className="group grid gap-5 px-2 py-7 transition-colors hover:bg-[#ded9cd] sm:grid-cols-[auto_1fr_auto] sm:items-start sm:px-4">
+                  <Icon className="h-6 w-6 text-[#315b55] transition-transform duration-200 group-hover:scale-105" strokeWidth={1.5} />
+                  <div>
+                    <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#b96745]">{item.tag}</p>
+                    <h3 className="mt-2 text-2xl text-[#25322f] transition-colors group-hover:text-[#315b55]">{item.title}</h3>
+                    <p className="mt-2 max-w-xl text-sm leading-6 text-[#52605b]">{item.description}</p>
                   </div>
-                  <span className="text-xs font-bold px-3 py-1 rounded-full bg-teal-100/90 text-teal-900">
-                    {item.tag}
-                  </span>
-                </div>
-
-                <h3 className="text-xl font-bold text-stone-900 group-hover:text-teal-900 transition-colors">
-                  {item.title}
-                </h3>
-
-                <p className="mt-3 text-sm text-stone-600 leading-relaxed">
-                  {item.description}
-                </p>
-              </div>
-
-              <div className="mt-6 pt-4 border-t border-stone-200/60 flex items-center text-xs font-semibold text-teal-800">
-                <span>Agendamento sob medida</span>
-              </div>
-            </div>
-          ))}
+                  <ArrowUpRight className="hidden h-5 w-5 text-[#315b55] transition-transform group-hover:-translate-y-1 group-hover:translate-x-1 sm:block" />
+                </article>
+              );
+            })}
+          </Reveal>
         </div>
-
       </div>
     </section>
   );

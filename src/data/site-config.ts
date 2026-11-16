@@ -401,12 +401,11 @@ export const siteConfig: SiteConfig = {
     directMapUrl: "https://maps.google.com/?q=Av.+Brigadeiro+Lu%C3%ADs+Ant%C3%B4nio,+2500+-+São+Paulo+-+SP"
   },
   navLinks: [
-    { label: "Início", href: "#inicio" },
-    { label: "Áreas de Atuação", href: "#especialidades" },
-    { label: "Como Funciona", href: "#metodologia" },
-    { label: "Sobre Mim", href: "#sobre" },
-    { label: "Depoimentos", href: "#depoimentos" },
-    { label: "Dúvidas", href: "#faq" },
-    { label: "Contato", href: "#contato" }
+    { label: "Início", href: "/" },
+    { label: "Especialidades", href: "/especialidades" },
+    { label: "Como funciona", href: "/como-funciona" },
+    { label: "Sobre", href: "/sobre" },
+    { label: "Dúvidas", href: "/duvidas" },
+    { label: "Contato", href: "/contato" }
   ]
 };

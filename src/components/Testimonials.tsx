@@ -1,64 +1,32 @@
 import { siteConfig } from '@/data/site-config';
-import { Quote, Star } from 'lucide-react';
+import { Quote } from 'lucide-react';
+import { Reveal } from '@/components/Reveal';
 
 export function Testimonials() {
   return (
-    <section id="depoimentos" className="py-20 md:py-28 bg-white border-t border-stone-200">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-teal-800 bg-teal-50 px-3.5 py-1.5 rounded-full border border-teal-200/80">
-            {siteConfig.testimonialsSection.tag}
-          </span>
-          <h2 className="mt-4 text-3xl sm:text-4xl font-extrabold text-stone-900 tracking-tight">
-            {siteConfig.testimonialsSection.title}
-          </h2>
-          <p className="mt-4 text-lg text-stone-600 leading-relaxed font-normal">
-            {siteConfig.testimonialsSection.subtitle}
-          </p>
-        </div>
-
-        {/* Testimonials Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {siteConfig.testimonialsSection.items.map((testimonial, idx) => (
-            <div
-              key={idx}
-              className="p-8 sm:p-9 rounded-3xl bg-[#fbfbf9] border border-stone-200 hover:border-teal-300 transition-all duration-300 flex flex-col justify-between"
-            >
+    <section id="depoimentos" className="border-b border-[#d7d3c9] bg-[#f7f5f0] py-20 md:py-28">
+      <div className="mx-auto max-w-7xl px-5 sm:px-8">
+        <Reveal className="mb-14 max-w-2xl">
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#b96745]">{siteConfig.testimonialsSection.tag}</p>
+          <h2 className="mt-5 text-4xl leading-tight text-[#25322f]">{siteConfig.testimonialsSection.title}</h2>
+          <p className="mt-5 text-lg leading-8 text-[#52605b]">{siteConfig.testimonialsSection.subtitle}</p>
+        </Reveal>
+        <Reveal className="motion-stagger grid gap-0 border-y border-[#d7d3c9] md:grid-cols-3 md:divide-x md:divide-[#d7d3c9]" delay={150}>
+          {siteConfig.testimonialsSection.items.map((testimonial) => (
+            <article key={testimonial.name} className="group flex flex-col justify-between border-b border-[#d7d3c9] px-0 py-8 transition-colors hover:bg-[#efebe3] md:border-b-0 md:px-7 first:md:pl-0 last:md:pr-0">
               <div>
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex text-amber-500" aria-label="Avaliação 5 estrelas">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 fill-current" />
-                    ))}
-                  </div>
-                  <Quote className="w-6 h-6 text-teal-800/30" />
-                </div>
-
-                <div className="mb-4">
-                  <span className="inline-block px-3 py-1 rounded-md text-xs font-bold bg-teal-100/90 text-teal-900">
-                    {testimonial.highlight}
-                  </span>
-                </div>
-
-                <p className="text-sm sm:text-base text-stone-700 leading-relaxed italic">
-                  &ldquo;{testimonial.text}&rdquo;
-                </p>
+                <Quote className="h-6 w-6 text-[#b96745] transition-transform duration-200 group-hover:translate-x-0.5" />
+                <p className="mt-5 text-base leading-7 text-[#33423d]">&ldquo;{testimonial.text}&rdquo;</p>
               </div>
-
-              <div className="mt-6 pt-4 border-t border-stone-200">
-                <p className="font-bold text-stone-900 text-sm">
-                  {testimonial.name}
-                </p>
-                <p className="text-xs text-stone-500 mt-0.5">
-                  {testimonial.role}
-                </p>
+              <div className="mt-8 border-t border-[#e2ded5] pt-4">
+                <p className="text-sm font-semibold text-[#25322f]">{testimonial.name}</p>
+                <p className="mt-1 text-xs leading-5 text-[#6e766f]">{testimonial.role}</p>
+                <p className="mt-3 text-xs font-semibold uppercase tracking-[0.1em] text-[#b96745]">{testimonial.highlight}</p>
               </div>
-            </div>
+            </article>
           ))}
-        </div>
-
+        </Reveal>
+        <p className="mt-6 text-xs text-[#6e766f]">Depoimentos ilustrativos no protótipo · validar autorização e identificação antes da publicação.</p>
       </div>
     </section>
   );

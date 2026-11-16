@@ -13,5 +13,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'weekly',
       priority: 1.0,
     },
+    ...siteConfig.navLinks
+      .filter((link) => link.href.startsWith('/'))
+      .filter((link) => link.href !== '/')
+      .map((link) => ({
+        url: `${baseUrl}${link.href}`,
+        lastModified: new Date(),
+        changeFrequency: 'monthly' as const,
+        priority: 0.8,
+      })),
   ];
 }
