@@ -8,7 +8,7 @@ export function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-10">
           
-          {/* Brand & CRFa info */}
+          {/* Identity & Registry */}
           <div className="md:col-span-5 space-y-4">
             <span className="text-xl font-bold text-white tracking-tight block">
               {siteConfig.professional.treatmentTitle}
@@ -16,12 +16,12 @@ export function Footer() {
             <p className="text-sm text-stone-400 leading-relaxed max-w-sm">
               {siteConfig.professional.shortBio}
             </p>
-            <div className="pt-2 text-xs text-teal-400 font-semibold">
+            <div className="pt-2 text-xs text-teal-400 font-semibold tracking-wide">
               {siteConfig.professional.crfa} • Conselho Regional de Fonoaudiologia
             </div>
           </div>
 
-          {/* Navigation Links */}
+          {/* Quick Links */}
           <div className="md:col-span-3 space-y-3">
             <h4 className="text-xs font-bold uppercase tracking-wider text-white">Navegação</h4>
             <ul className="space-y-2 text-sm text-stone-400">
@@ -35,7 +35,7 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Contact & Legal Notice */}
+          {/* Practice Details & Ethical Notice */}
           <div className="md:col-span-4 space-y-3">
             <h4 className="text-xs font-bold uppercase tracking-wider text-white">Atendimento</h4>
             <p className="text-sm text-stone-400">
@@ -45,7 +45,7 @@ export function Footer() {
               WhatsApp: {siteConfig.contact.phoneDisplay}
             </p>
             <p className="text-xs text-stone-500 pt-3 leading-relaxed">
-              * Informações de caráter exclusivamente educativo e informativo, em consonância com as diretrizes do Conselho Federal de Fonoaudiologia (CFFa).
+              * Conteúdo de caráter educativo e orientativo, em conformidade com as diretrizes e código de ética do Conselho Federal de Fonoaudiologia (CFFa).
             </p>
           </div>
 
@@ -55,7 +55,7 @@ export function Footer() {
           <p>
             © {currentYear} {siteConfig.professional.name}. Todos os direitos reservados.
           </p>
-          <p>
+          <p className="text-stone-400">
             Fonoaudiologia Baseada em Evidências
           </p>
         </div>
